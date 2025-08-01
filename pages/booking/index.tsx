@@ -3,15 +3,23 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import PropertyDetail from "@/components/property/PropertyDetail";
 
+interface Property {
+  id: string;
+  title: string;
+  description: string;
+  // Add other relevant fields based on your data shape
+}
+
 export default function PropertyDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [property, setProperty] = useState(null);
+  const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProperty = async () => {
-      if (!id) return;
+      if (!id || typeof id !== "string") return;
+
       try {
         const response = await axios.get(`/api/properties/${id}`);
         setProperty(response.data);
