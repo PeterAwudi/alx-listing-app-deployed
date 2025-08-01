@@ -1,8 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const ReviewSection = ({ propertyId }) => {
-  const [reviews, setReviews] = useState([]);
+type Review = {
+  id: string;
+  comment: string;
+};
+
+type Props = {
+  propertyId: string;
+};
+
+const ReviewSection = ({ propertyId }: Props) => {
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
